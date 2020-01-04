@@ -183,9 +183,11 @@ myPredict = async function(){
                                                                                                                                                                                     
 
    const result = await classifier.predictClass(tf.tensor2d(newArray2, shape=[68,2], 'float32'), 3);   // number of groups
-    
-   document.getElementById('myDivTest').innerHTML = 'Group: ' + result.classIndex + ', '+ 
+   if(result.confidences[result.classIndex] > 0.89){
+      document.getElementById('myDivTest').innerHTML = 'Group: ' + result.classIndex + ', '+ 
        Math.round(result.confidences[result.classIndex]*100)+ '% ' + myGroups[result.classIndex]+ '<br>' 
+   }
+   
   } else {(console.log('Need to train groups'))}
 }
                                                                                              
